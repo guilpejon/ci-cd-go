@@ -1,0 +1,15 @@
+steps:
+  - name: 'ci-cd-go'
+    args: ['build', '-t', 'gcr.io/sandbox-286503/ci-cd-go:latest', '-t', 'gcr.io/sandbox-286503/ci-cd-go:$SHORT_SHA', '.']
+
+  - name: 'docker'
+    args: ['run', '-d', '--name', 'goapp', 'gcr.io/sandbox-286503/ci-cd-go:latest']
+
+  - name: 'docker'
+    args: ['exec', 'goapp', 'go', 'test']
+
+  # - name: 'docker'
+  #   args: ['push', 'gcr.io/sandbox-286503/ci-cd-go:latest']
+
+  # - name: 'docker'
+  #   args: ['push', 'gcr.io/sandbox-286503/ci-cd-go:$SHORT_SHA']
